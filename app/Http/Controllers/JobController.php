@@ -7,18 +7,30 @@ use App\Http\Requests\CreateJobRequest;
 use App\Http\Traits\ApiResponses;
 use App\Jobs\ScrapData;
 use App\Models\ScrapJob;
+use App\Services\CreateJobService;
 
 class JobController extends Controller
 {
   use ApiResponses;
-  
+
+  protected $createJobService;
+  public function __construct(CreateJobService $createJobService) 
+  {
+    $this->createJobService = $createJobService;
+  }
+
   public function create(CreateJobRequest $request)
   {
     $job = ScrapJob::create([
       'scrap_info' => json_encode($request->get('scrap_info')),
       'status' => JobStatus::PENDING->value,
     ]);
+    $jobData = $request->get('scrap_info');
+    $scrapData = $this->createJobService->scrapeDataFromUrl_Url_SelectorArray($jobData['url'], $jobData['selector']);
 
+    ScrapJob::updated([
+      'scrap_data' => $scrapData,
+    ]);
     return $this->successResponse('', 'Create job successful!');
   }
 
