@@ -1,10 +1,10 @@
 # Usage
 ## Jobs endpoint
 ### Rest API Success Responses
-1. POST https://api.example.com/api/jobs
+1. **POST** https://api.example.com/api/jobs
 
-REQUEST
-```json
+**REQUEST**
+```javascript
 Content-Type: application/json
 {
     "scrap_info": [
@@ -19,8 +19,8 @@ Content-Type: application/json
     ]
 }
 ```
-RESPONSE
-```json
+**RESPONSE**
+```javascript
 Status: 200 OK
 {
     "message": "Create job successful!",
@@ -29,10 +29,10 @@ Status: 200 OK
     }
 }
 ```
-2. GET https://api.example.com/api/jobs/{id}
+2. **GET** https://api.example.com/api/jobs/{id}
 
-RESPONSE
-```json
+**RESPONSE**
+```javascript
 Content-Type: application/json
 Status: 200 OK
 {
@@ -52,10 +52,10 @@ Status: 200 OK
     }
 }
 ```
-3. DELETE https://api.example.com/api/jobs/{id}
+3. **DELETE** https://api.example.com/api/jobs/{id}
 
-RESPONSE
-```json
+**RESPONSE**
+```javascript
 Content-Type: application/json
 Status: 200 OK
 {
@@ -65,9 +65,10 @@ Status: 200 OK
 ```
 ### Rest API Error Responses
 
-1. GET - HTTP Response Code: **404**
+1. **GET** - HTTP Response Code: **404**
 
-```json
+**RESPONSE**
+```javascript
 Content-Type: application/json
 Status: 404 Not Found
 {
@@ -75,9 +76,10 @@ Status: 404 Not Found
     "errors": ""
 }
 ```
-2. DELETE - HTTP Response Code: **404**
+2. **DELETE** - HTTP Response Code: **404**
 
-```json
+**RESPONSE**
+```javascript
 Content-Type: application/json
 Status: 404 Not Found
 {
@@ -85,9 +87,10 @@ Status: 404 Not Found
     "errors": ""
 }
 ```
-3. POST -  HTTP Response Code: **422**
+3. **POST** -  HTTP Response Code: **422**
 
-```json
+**RESPONSE**
+```javascript
 Content-Type: application/json
 Status: 422 Unprocessable Content
 {
