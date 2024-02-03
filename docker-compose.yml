@@ -1,0 +1,55 @@
+version: "1.0"
+
+services:
+  # PHP Service
+  php:
+    image: php:8.2-fpm
+    container_name: laravel-php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - app-laravel
+
+  # Nginx Service
+  nginx:
+    image: nginx:latest
+    container_name: laravel-nginx
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+    networks:
+      - app-laravel
+
+  # Mysql Service
+  mysql:
+    image: mysql:8.0
+    container_name: scrape-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./database/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - app-laravel
+      
+  # Redis Service
+  redis:
+    image: redis:latest
+    container_name: laravel-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-laravel
+
+networks:
+  app-laravel:
+    driver: bridge
