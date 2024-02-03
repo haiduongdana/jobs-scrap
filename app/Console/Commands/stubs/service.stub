@@ -1,0 +1,23 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Core\BaseService;
+
+class DummyClass extends BaseService
+{
+    protected $collectsData = true;
+
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Logic to handle the data
+     */
+    public function handle()
+    {
+
+    }
+}
